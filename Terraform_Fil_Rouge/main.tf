@@ -243,7 +243,7 @@ resource "kubernetes_deployment" "frontend" {
       spec {
         container {
           name  = "frontend-container"
-          image = "aicha037/front9:latest"
+          image = "fatou0409/profilapp-frontend:latest"
 
           port {
             container_port = 80
