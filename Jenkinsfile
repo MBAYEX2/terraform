@@ -2,38 +2,47 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\Users\\hp\\Desktop\\terraform_1.11.4_windows_amd64;${env.PATH}"
+        TERRAFORM_DIR = 'terraform_fil_rouge/Terraform_Fil_Rouge'
     }
 
     stages {
-        stage('Checkout du code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/fatou0409/terraform_fil_rouge.git'
+                git branch: 'main', url: 'https://github.com/votre-utilisateur/terraform_fil_rouge.git'
             }
         }
 
-        stage('Initialisation de Terraform') {
+        stage('Init Terraform') {
             steps {
-                dir('Terraform_Fil_Rouge') {
-                    bat 'terraform init'
+                dir("${env.TERRAFORM_DIR}") {
+                    sh 'terraform init'
                 }
             }
         }
 
         stage('Plan Terraform') {
             steps {
-                dir('Terraform_Fil_Rouge') {
-                    bat 'terraform plan'
+                dir("${env.TERRAFORM_DIR}") {
+                    sh 'terraform plan -out=tfplan'
                 }
             }
         }
 
-        stage('Application de Terraform') {
+        stage('Apply Terraform') {
             steps {
-                dir('Terraform_Fil_Rouge') {
-                    bat 'terraform apply -auto-approve'
+                dir("${env.TERRAFORM_DIR}") {
+                    sh 'terraform apply -auto-approve tfplan'
                 }
             }
+        }
+    }
+
+    post {
+        failure {
+            echo 'Le pipeline a échoué.'
+        }
+        success {
+            echo 'Le pipeline a été exécuté avec succès.'
         }
     }
 }
