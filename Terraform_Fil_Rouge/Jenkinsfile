@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-
     stages {
         stage('Checkout du code') {
             steps {
@@ -11,19 +10,25 @@ pipeline {
 
         stage('Initialisation de Terraform') {
             steps {
-                bat 'terraform init'
+                dir('Terraform_Fil_Rouge') {
+                    bat 'terraform init'
+                }
             }
         }
 
         stage('Plan Terraform') {
             steps {
-                bat 'terraform plan'
+                dir('Terraform_Fil_Rouge') {
+                    bat 'terraform plan'
+                }
             }
         }
 
         stage('Application de Terraform') {
             steps {
-                bat 'terraform apply -auto-approve'
+                dir('Terraform_Fil_Rouge') {
+                    bat 'terraform apply -auto-approve'
+                }
             }
         }
     }
