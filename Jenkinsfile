@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        PATH = "C:\\Users\\hp\\Desktop\\terraform_1.11.4_windows_amd64;${env.PATH}"
+    }
+
     stages {
         stage('Checkout du code') {
             steps {
