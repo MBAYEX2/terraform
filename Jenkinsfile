@@ -2,14 +2,13 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\Users\\hp\\Desktop\\terraform_1.11.4_windows_amd64;${env.PATH}"
         TERRAFORM_DIR = 'Terraform_Fil_Rouge'
     }
 
     stages {
         stage('Checkout du code') {
             steps {
-                git branch: 'main', url: 'https://github.com/fatou0409/terraform_fil_rouge.git'
+                git branch: 'main', url: 'https://github.com/MBAYEX2/terraform.git'
             }
         }
 
