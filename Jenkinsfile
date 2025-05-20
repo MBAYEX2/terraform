@@ -15,7 +15,7 @@ pipeline {
         stage('Initialisation de Terraform') {
             steps {
                 dir("${env.TERRAFORM_DIR}") {
-                    sh 'terraform init'
+                    sh 'sudo terraform init'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Plan Terraform') {
             steps {
                 dir("${env.TERRAFORM_DIR}") {
-                    sh 'terraform plan'
+                    sh 'sudo terraform plan'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
         stage('Application de Terraform') {
             steps {
                 dir("${env.TERRAFORM_DIR}") {
-                    sh 'terraform apply -auto-approve'
+                    sh 'sudo terraform apply -auto-approve'
                 }
             }
         }
